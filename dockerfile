@@ -9,18 +9,20 @@ LABEL description="Dockerfile to build a PubSub+ Monitor container"
 RUN apk update
 RUN apk add bash
 
+WORKDIR /usr
+
 #Copy over our unzipped RTViewSolaceMonitor directory
-COPY RTViewSolaceMonitor/ /usr/RTViewSolaceMonitor/
-COPY soleventmodule_docker.properties /usr/RTViewSolaceMonitor/
-COPY *.sh /usr/RTViewSolaceMonitor/
+COPY RTViewSolaceMonitor_5.0.0.0.zip .
+RUN unzip RTViewSolaceMonitor_5.0.0.0.zip
 
 #Shorthand, so we don't have to keep specifying the whole path
 WORKDIR /usr/RTViewSolaceMonitor
 
+COPY soleventmodule_docker.properties *.sh ./
+#COPY *.sh .
+
 #Run dos2unix to fix Windows/Unix line endings
-RUN dos2unix setup_syslog.sh
-RUN dos2unix entrypoint.sh
-RUN ./setup_syslog.sh
+RUN dos2unix setup_syslog.sh && dos2unix entrypoint.sh && ./setup_syslog.sh
 
 #PS+ Mon listens on 8068
 #Syslog events come in on 10601 & 10602
