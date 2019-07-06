@@ -18,11 +18,13 @@ RUN unzip RTViewSolaceMonitor_5.0.0.0.zip
 #Shorthand, so we don't have to keep specifying the whole path
 WORKDIR /usr/RTViewSolaceMonitor
 
+#Copy over the files we need into the container
 COPY soleventmodule_docker.properties *.sh ./
-#COPY *.sh .
 
 #Run dos2unix to fix Windows/Unix line endings
-RUN dos2unix setup_syslog.sh && dos2unix entrypoint.sh && ./setup_syslog.sh
+#Move the alerting script to the appropriate subdirectory
+#Execute the script to update our syslog entries
+RUN dos2unix setup_syslog.sh && dos2unix entrypoint.sh && dos2unix my_alert_actions.sh && mv my_alert_actions.sh projects/rtview-server && ./setup_syslog.sh
 
 #PS+ Mon listens on 8068
 #Syslog events come in on 10601 & 10602
