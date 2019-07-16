@@ -2,7 +2,7 @@
 This project dockerizes PubSub+ Monitor in an effort to simplify demos. Once launched, the container provides a minimal, operational product with various PubSub+ Monitor capabilities enabled.
 
 ## Features
-+ Syslog integration 
++ Syslog integration (pending)
 + Alerting integration with Slack
  
 ## Prerequisites
@@ -21,10 +21,10 @@ This project dockerizes PubSub+ Monitor in an effort to simplify demos. Once lau
 
 ### Launch the Container
 ```
-docker run -p 8086:8086 -p 10601:10601 -p 10602:10602 --name=pspmon solace/pspmon:demo
+docker run -d -p 8086:8086 -p 10601:10601 -p 10602:10602 --name=pspmon solace/pspmon:demo
 ```
-
-Follow the PubSub+ Monitor documentation to begin monitoring your instance of PubSub+.
+This will start the PubSub+ Monitor container as a daemon, after which you can
+follow the PubSub+ Monitor documentation to begin monitoring your instance of PubSub+.
 
 ## Receiving Alerts on Slack
 The basic workflow for subscribing to Slack alerts is as follows:
@@ -40,7 +40,16 @@ The basic workflow for subscribing to Slack alerts is as follows:
 If you have PubSub+ running locally (e.g. on http://localhost:8080), configure Monitor to 
 point to your machine's `IP` i.e. http://&lt;IP&gt;:8080, not `localhost`. This is because of how Docker does networking.
 
-### Syslog
+### Syslog (Pending)
 + Although Syslog is setup in the Docker container, you still need to enable it on your PubSub+ instance(s).
 + The default container exposes ports `10601` & `10602` for Syslog System & Event events, respectively.
-+ Keep in mind that you need to use *your computers* IP when setting up Syslog on the brokers
++ Keep in mind that you need to use **your computers** IP when setting up Syslog on the brokers
+
+## Enhancements
+### Syslog
++ No Syslog receiver is setup in the container. One has to be present for Syslog to work.
+
+### Miscellaneous
++ Other alerting modalities (email, create serviceNow ticket, etc.)
+  + Feel free to suggest or add your own.
++ PubSub+ Monitor starts up on http://localhost:8068 & displays the default Apache Tomcat startup page. This should ideally open directly to PubSub+ Monitor, or a more useful launch page.
