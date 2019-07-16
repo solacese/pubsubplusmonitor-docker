@@ -127,4 +127,4 @@ EOF
 #POST our alert message to Slack using the webhook.
 #Webhooks are setup on your organizations Slack account.
 #The $(print_slack_alert) line invokes the function above & emits the JSON we want to send
-curl -H "Content-Type:application/json" -d "$(print_slack_alert)" https://hooks.slack.com/services/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
+curl -H "Content-Type:application/json" -d "$(print_slack_alert)" {$webhook}
