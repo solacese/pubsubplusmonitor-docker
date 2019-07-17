@@ -21,9 +21,9 @@ This project dockerizes PubSub+ Monitor in an effort to simplify demos. Once lau
 
 ### Launch the Container
 ```
-docker run -d -p 8086:8086 -p 10601:10601 -p 10602:10602 --name=pspmon solace/pspmon:demo
+docker run -d -p 8068:8068 -p 10601:10601 -p 10602:10602 --name=pspmon solace/pspmon:demo
 ```
-This will start the PubSub+ Monitor container as a daemon, after which you can
+This will start the PubSub+ Monitor container as a daemon on `http://localhost:8068`, after which you can
 follow the PubSub+ Monitor documentation to begin monitoring your instance of PubSub+.
 
 ## Receiving Alerts on Slack
