@@ -8,7 +8,7 @@ This project dockerizes PubSub+ Monitor in an effort to simplify demos. Once lau
 ## Prerequisites
 + Docker
 + git
-+ The Latest PubSub+ Monitor zipfile downloaded from RTView (Ask Darryl Mcgee for credentials)
++ The Latest PubSub+ Monitor zipfile downloaded from RTView (Ask Darryl MacRae for credentials)
 + A valid PubSub+ Monitor trail Key
 
 ## Usage
