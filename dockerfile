@@ -12,25 +12,22 @@ RUN apk add bash
 WORKDIR /usr
 
 #Copy over our unzipped RTViewSolaceMonitor directory
-COPY RTViewSolaceMonitor_5.0.0.0.zip .
-RUN unzip RTViewSolaceMonitor_5.0.0.0.zip
+COPY RTViewSolaceMonitor*.zip .
+RUN unzip RTViewSolaceMonitor*.zip
 
 #Shorthand, so we don't have to keep specifying the whole path
 WORKDIR /usr/RTViewSolaceMonitor
 
 #Copy over the files we need into the container
-COPY soleventmodule_docker.properties *.sh KEYS ./
+#COPY soleventmodule_docker.properties *.sh KEYS ./
+COPY my_alert_actions.sh entrypoint.sh ./
 
 #Run dos2unix to fix Windows/Unix line endings
 #Move the alerting script to the appropriate subdirectory
-#Execute the script to update our syslog entries
-RUN dos2unix setup_syslog.sh && dos2unix entrypoint.sh && dos2unix my_alert_actions.sh && mv my_alert_actions.sh projects/rtview-server && ./setup_syslog.sh && mv KEYS rtvapm/rtview/lib
+RUN dos2unix entrypoint.sh && dos2unix my_alert_actions.sh && mv my_alert_actions.sh projects/rtview-server
 
 #PS+ Mon listens on 8068
-#Syslog events come in on 10601 & 10602
 EXPOSE 8068
-EXPOSE 10601
-EXPOSE 10602
 
 #What to exec when our container starts
 ENTRYPOINT ["./entrypoint.sh"]

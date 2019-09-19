@@ -73,10 +73,11 @@ done
 # echo "----- Alert command script executed: DOMAINNAME=$DOMAINNAME, ALERTNAME=$ALERTNAME, ALERTINDEX=$ALERTINDEX, ALERTTEXT=$ALERTTEXT, ALERTID=$ALERTID, ALERTSEVERITY=$ALERTSEVERITY #####"
 
 # To send an email, uncomment and modify the line below
-
 # echo "DOMAINNAME=$DOMAINNAME, ALERTNAME=$ALERTNAME, ALERTINDEX=$ALERTINDEX, ALERTTEXT=$ALERTTEXT, ALERTID=$ALERTID, ALERTSEVERITY=$ALERTSEVERITY Thanks-SYSTEM ADMIN" | mail -s "RTV ALERT-$ALERTNAME" distributionlist@domain.com -c carboncopy@domain.com - -f from@domain.com
 
-# Add custom processing for sending to Slack
+#POST our alert message to Slack using the webhook, if provided. Webhooks are setup on your organizations Slack account.
+if [[ -n "${SLACKWEBHOOKURL}" ]]
+then
 
 # We need print_slack_alert() here to simplify generating the JSON for Slack.
 # Otherwise, we'd have to end up dealing with trying to escape nested double-quotes
@@ -124,7 +125,5 @@ function print_slack_alert(){
 EOF
 }
 
-#POST our alert message to Slack using the webhook.
-#Webhooks are setup on your organizations Slack account.
-#The $(print_slack_alert) line invokes the function above & emits the JSON we want to send
-curl -H "Content-Type:application/json" -d "$(print_slack_alert)" {$webhook}
+  curl -H "Content-Type:application/json" -d "$(print_slack_alert)" ${SLACKWEBHOOKURL}
+fi
