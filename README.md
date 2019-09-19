@@ -27,7 +27,7 @@ The PubSub+ Monitor container will start as a daemon on `http://localhost:8068`,
 follow the standard product documentation to begin monitoring your instance of PubSub+.
 
 ## Receiving Alerts on Slack
-> :note: Please setup your webhook URL _before_ creating the Docker container.
+> :information_source: Please setup your webhook URL _before_ creating the Docker container.
 
 The basic workflow for receiving alerts in Slack is:
 1. Enable an alert to monitor in PubSub+ Monitor.
