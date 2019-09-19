@@ -8,7 +8,7 @@ This project provides the files necessary to build & run PubSub+ Monitor in a Do
 + Docker
 + git
 + The Latest PubSub+ Monitor zipfile downloaded from RTView
-+ A valid PubSub+ Monitor trail Key
++ A valid PubSub+ Monitor trail key, if necessary. The zip archive usually includes a temporary key.
 
 ## Usage
 
@@ -32,6 +32,7 @@ follow the standard product documentation to begin monitoring your instance of P
 The basic workflow for receiving alerts in Slack is:
 1. Enable an alert to monitor in PubSub+ Monitor.
 2. Create a basic Slack application with a webhook URL & install it in a Slack channel of your choice (e.g. `Slackbot`).  
+3. Create a Docker container, giving it the webhook URL from 2.
 3. Trigger the alert you setup in 1 & watch as alert messages appear in the Slack channel.
 
 > :warning: Keep in mind that **everyone** who has the App installed will receive alerts. Please be considerate, avoid flooding the app.
