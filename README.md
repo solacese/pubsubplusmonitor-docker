@@ -7,7 +7,7 @@ This project provides the files necessary to build & run PubSub+ Monitor in a Do
 ## Prerequisites
 + Docker
 + git
-+ The Latest PubSub+ Monitor zipfile downloaded from RTView
++ The latest PubSub+ Monitor zip archive
 + A valid PubSub+ Monitor trail key, if necessary. The zip archive usually includes a temporary key.
 
 ## Usage
