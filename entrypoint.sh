@@ -14,17 +14,16 @@ echo "----------------------------------------------------------------"
 echo "| Helper Script to start PubSub+ Monitor in a Docker container.|"
 echo "| This is *not* a part of the original product.                |"
 echo "----------------------------------------------------------------"
-echo ""
 
 #If a KEY was provided during container creation, replace the old KEY with it.
 if [[ -n "${KEYS}" ]] 
 then
-  echo "Using KEY ${KEYS}"
+  echo -e "\nUsing KEY ${KEYS}"
   rm -rf rtvapm/rtview/lib/KEYS
   touch rtvapm/rtview/lib/KEYS
   echo ${KEYS} > rtvapm/rtview/lib/KEYS
 else
-  echo "No external KEYS provided. Using the default KEY provided in the ZIP."
+  echo "\nNo external KEYS provided. Using the default KEY provided in the ZIP."
 fi  
 
 if [[ -n "${SLACKWEBHOOKURL}" ]]
@@ -32,15 +31,17 @@ then
   echo "Will send alerts to Slack using ${SLACKWEBHOOKURL}"
 fi
 
-echo ""
-echo "Executing start_servers.sh"
-echo ""
+##Temporary Fix
+#Add support for SolOS 9.2+ by updating RTView's classpath to find the necessary SEMP schemas files
+echo -e "Adding support for SolOS 9.2+"
+sed -r -i.bak 's/solace-pwd-utility.*/&\ncollector.sl.rtview.cp=%RTVAPM_HOME%\/solmon\/resources/' rtvapm/solmon/conf/rtvapm.solmon.properties
+
+echo -e "\nExecuting start_servers.sh"
 
 #Start the actual PubSub+ Monitor Services
 cd bin
 ./start_servers.sh -eval
 
 #tail dev/null to keep the container up
-echo ""
-echo "...tailing /dev/null to keep container alive..."
+echo -e "\n...tailing /dev/null to keep container alive..."
 tail -f /dev/null

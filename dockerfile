@@ -22,6 +22,14 @@ WORKDIR /usr/RTViewSolaceMonitor
 #COPY soleventmodule_docker.properties *.sh KEYS ./
 COPY my_alert_actions.sh entrypoint.sh ./
 
+#Temporary Fix
+#Copy over the schemas necessary to support SolOS 9.2+
+COPY *.xsd rtvapm/solmon/resources/9_2VMR/
+COPY *.xsd rtvapm/solmon/resources/9_2Appliance/
+COPY *.xsd rtvapm/solmon/resources/9_3VMR/
+COPY *.xsd rtvapm/solmon/resources/9_3Appliance/
+
+
 #Run dos2unix to fix Windows/Unix line endings
 #Move the alerting script to the appropriate subdirectory
 RUN dos2unix entrypoint.sh && dos2unix my_alert_actions.sh && mv my_alert_actions.sh projects/rtview-server
